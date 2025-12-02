@@ -209,3 +209,6 @@ __marimo__/
 # MacOS files
 .DS_Store
 
+# UV files
+.python-version
+pyproject.toml
