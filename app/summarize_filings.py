@@ -104,3 +104,14 @@ def process_ticker(ticker, company_name):
         print(f"Error with {ticker}: {e}")
         time.sleep(2)
 
+# ============================
+# * Run everything
+# ============================
+if __name__ == "__main__":
+    with open("stocks.json", "r") as f:
+        stocks = json.load(f)
+
+    print(f"Starting summarization for {len(stocks)} stocks using {GROK_MODEL}...")
+    for ticker, name in tqdm(stocks.items()):
+        process_ticker(ticker.upper(), name)
+    print("All done! Check the 'summaries/' folder.")
