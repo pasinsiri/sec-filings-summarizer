@@ -10,7 +10,7 @@ GROK_API_KEY = os.getenv("GROK_API_KEY")
 GROK_MODEL = "grok-3"  # or "grok-4" if you have access
 
 # What filing type to summarize
-FILING_TYPE = "10-K"  # or "10-Q"
+FILING_TYPE = "10-Q"  # or "10-K"
 
 # Max chunks per filing (controls cost vs quality)
 MAX_CHUNKS = 10
