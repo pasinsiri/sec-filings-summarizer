@@ -87,3 +87,31 @@ def get_latest_filing_date(ticker: str, form: str = "10-K") -> Optional[datetime
     dates = get_filing_dates(ticker, form=form, max_filings=1)
     return dates[0] if dates else None
 
+
+if __name__ == "__main__":
+    # Example usage
+    set_identity("Demo demo@example.com")
+
+    ticker = "GOOGL"
+    print(f"Filing dates for {ticker}:\n")
+
+    # Get latest filing date
+    latest = get_latest_filing_date(ticker)
+    print(f"Latest 10-K filing:   {latest}")
+
+    # Get previous filing date
+    previous = get_previous_filing_date(ticker, offset=1)
+    print(f"Previous 10-K filing: {previous}")
+
+    # Get filing from 2 years ago
+    two_years_ago = get_previous_filing_date(ticker, offset=2)
+    print(f"2 filings ago:        {two_years_ago}")
+
+    # Get all recent filing dates
+    print(f"\nAll recent 10-K filings:")
+    recent_dates = get_filing_dates(ticker, max_filings=5)
+    for i, date in enumerate(recent_dates):
+        print(f"  {i+1}. {date}")
+
+    # Also works with other filing types
+    print(f"\nLatest 10-Q filing: {get_latest_filing_date(ticker, form='10-Q')}")
