@@ -1,4 +1,4 @@
-from config import GROK_API_KEY, GROK_MODEL, FILING_TYPE, MAX_CHUNKS
+from config.config import GROK_API_KEY, GROK_MODEL, FILING_TYPE, MAX_CHUNKS
 
 def chunk_text(text, max_tokens=8000):
     """Simple chunking by characters (good enough + fast)"""
@@ -22,10 +22,11 @@ def chunk_text(text, max_tokens=8000):
 
 def summarize_with_grok(text, client, is_final=False):
     if is_final:
-        system_prompt = "You are a senior financial analyst. Summarize the key points from multiple section summaries into one concise, investor-friendly 10-K summary (max 800 words). Include: business overview, growth strategy, key risks, financial highlights, and forward outlook."
+        system_prompt = "You are a senior financial analyst. Summarize the key points from multiple section summaries into one concise, investor-friendly 10-Q summary (max 800 words). Include: business overview, growth strategy, key risks, financial highlights, and forward outlook."
         user_prompt = text
     else:
-        system_prompt = "You are a financial analyst. Summarize this section of a 10-K filing in 250–350 words. Focus on business strategy, competitive position, risks, and financial implications. Be concise but insightful."
+        # system_prompt = "You are a financial analyst. Summarize this section of a 10-Q filing in 250-350 words. Focus on business strategy, competitive position, risks, and financial implications. Be concise but insightful."
+        system_prompt = "You are a financial analyst. Summarize this section of a 10-Q filing in 250-350 words. Focus on the Management's Discussion & Analysis, Risk Factors, Statements (if anything is particularly interesting). Summarize it and answer questions regarding the current business overview, outlook in the upcoming years, and growth strategy. Be concise but insightful."
         user_prompt = f"Section text:\n\n{text}"
 
     response = client.chat.completions.create(
